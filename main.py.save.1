@@ -8,16 +8,8 @@ import psutil
 
 load_dotenv()
 
-ROBLOX_PACKAGE = [
-"com.roblox.clienb",
-"com.roblox.clienc",
-"com.roblox.cliend",
-"com.roblox.cliene"
-]
+ROBLOX_PACKAGE = "com.roblox.client"
 
-ROBLOX_PACKAGES = "com.roblox.clienb"
-
-PS_LINK = "https://www.roblox.com/share?code=d21982e38220244b8ad4f8cf3843b0c3&type=Server"
 
 class DiscordNotifier:
     def __init__(self, user_id):
@@ -242,24 +234,11 @@ def force_stop_roblox():
     time.sleep(1)
 
 
-def open_ps_link(link):
-    cmd = f"am start -a android.intent.action.VIEW -d '{PS_LINK}' -p {ROBLOX_PACKAGE}"
-
-    os.system(f"su -c \"am start -a android.intent.action.VIEW -d '{PS_LINK}' -p com.roblox.clienb\"")
-    time.sleep(20)
-
-    os.system(f"su -c \"am start -a android.intent.action.VIEW -d '{PS_LINK}' -p com.roblox.clienc\"")
-    time.sleep(20)
-
-    os.system(f"su -c \"am start -a android.intent.action.VIEW -d '{PS_LINK}' -p com.roblox.cliend\"")
-    time.sleep(20)
-
-    os.system(f"su -c \"am start -a android.intent.action.VIEW -d '{PS_LINK}' -p com.roblox.cliene\"")
-
+cmd = f'am start -n com.roblox.clienb/com.roblox.client.startup.ActivitySplash -a android.intent.action.VIEW -d "{link}"'def open_ps_link(link):
+    cmd = f'am start -a android.intent.action.VIEW -d "{link}" -p {ROBLOX_PACKAGE}'
     success, _ = run_shell_cmd(cmd, use_root=True, silent=True)
-
     return success
-
+cmd = f'am start -n com.roblox.clienb/com.roblox.client.startup.ActivitySplash -a android.intent.action.VIEW -d "{link}"'
 
 def is_roblox_running():
     return get_roblox_pid() is not None

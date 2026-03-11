@@ -8,16 +8,8 @@ import psutil
 
 load_dotenv()
 
-ROBLOX_PACKAGE = [
-"com.roblox.clienb",
-"com.roblox.clienc",
-"com.roblox.cliend",
-"com.roblox.cliene"
-]
+ROBLOX_PACKAGE = "com.roblox.client"
 
-ROBLOX_PACKAGES = "com.roblox.clienb"
-
-PS_LINK = "https://www.roblox.com/share?code=d21982e38220244b8ad4f8cf3843b0c3&type=Server"
 
 class DiscordNotifier:
     def __init__(self, user_id):
@@ -106,7 +98,7 @@ class DiscordNotifier:
              content_lines.append(f"• **Account Name:** {self.display_name}")
         
         content_lines.append(f"• **CPU Usage:** {system_info['cpu_percent']}%")
-        content_lines.append(f"• **RAM Usage:** {system_info['ram_used_gb']}/{system_info['ram_total_gb']} GB ({system_info['ram_percent']}%)")
+       content_lines.append(f"• **RAM Usage:** {system_info['ram_used_gb']}/{system_info['ram_total_gb']} GB ({system_info['ram_percent']}%)")
 
         mention = self.format_mention()
         if mention:
@@ -243,21 +235,7 @@ def force_stop_roblox():
 
 
 def open_ps_link(link):
-    cmd = f"am start -a android.intent.action.VIEW -d '{PS_LINK}' -p {ROBLOX_PACKAGE}"
-
-    os.system(f"su -c \"am start -a android.intent.action.VIEW -d '{PS_LINK}' -p com.roblox.clienb\"")
-    time.sleep(20)
-
-    os.system(f"su -c \"am start -a android.intent.action.VIEW -d '{PS_LINK}' -p com.roblox.clienc\"")
-    time.sleep(20)
-
-    os.system(f"su -c \"am start -a android.intent.action.VIEW -d '{PS_LINK}' -p com.roblox.cliend\"")
-    time.sleep(20)
-
-    os.system(f"su -c \"am start -a android.intent.action.VIEW -d '{PS_LINK}' -p com.roblox.cliene\"")
-
-    success, _ = run_shell_cmd(cmd, use_root=True, silent=True)
-
+   =success, _ = run_shell_cmd(cmd, use_root=True, silent=True)
     return success
 
 
